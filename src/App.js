@@ -14,7 +14,6 @@ function App() {
 
   const logouthandler = (e) => {
     e.preventDefault();
-    e.persist();
     dispatch(logoutAction());
   };
 
