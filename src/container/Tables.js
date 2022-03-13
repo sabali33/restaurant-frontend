@@ -4,8 +4,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { getTablesAction } from "../Actions/Table";
 import Grid from "../Components/Grid";
-import LoginSignup from "../Components/LoginSignup";
-import CreateRestaurantForm from "./CreateRestaurantForm";
 import { LayoutWithNav } from "../Components/Layout";
 
 const Tables = () => {
@@ -26,7 +24,7 @@ const Tables = () => {
     getTables();
   }, [getTables]);
 
-  const addTable = (cell_id) => {
+  const addTable = (cell_id, data) => {
     setEditingTable(cell_id);
   };
   const editTable = (table_id) => {
@@ -35,15 +33,10 @@ const Tables = () => {
   const closeEditingModal = () => {
     setEditingTable(false);
   };
-  if (!user.token) {
-    return <LoginSignup />;
-  }
-  if (!user.user.store) {
-    return <CreateRestaurantForm />;
-  }
+
   return (
-    <LayoutWithNav activeTab={"tables"}>
-      <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend}>
+      <LayoutWithNav activeTab={"tables"}>
         <div className="relative">
           {error && <div className="text-red-400">{error}</div>}
           <Grid
@@ -57,8 +50,8 @@ const Tables = () => {
             rows={10}
           />
         </div>
-      </DndProvider>
-    </LayoutWithNav>
+      </LayoutWithNav>
+    </DndProvider>
   );
 };
 

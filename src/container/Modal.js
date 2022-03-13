@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom";
 
 const Modal = ({ children, open, onClose }) => {
-  console.log(open);
   if (!open) return null;
 
   return ReactDOM.createPortal(

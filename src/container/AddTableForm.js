@@ -29,6 +29,7 @@ const AddTableForm = (props) => {
   }, [table]);
 
   const createTableHandler = async (table) => {
+    console.log(props.id);
     try {
       if (table) {
         await dispatch(updateTableAction(table.id, numberOfSeats));
@@ -36,7 +37,7 @@ const AddTableForm = (props) => {
         await dispatch(createTableAction(props.id, numberOfSeats));
       }
 
-      props.onCloseModal();
+      props.onCloseEditingModal();
     } catch (err) {
       console.log(err);
       setErrors(err.message);

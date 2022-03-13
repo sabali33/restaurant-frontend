@@ -2,6 +2,7 @@ import config from "../config";
 import { prepareRequestPayload } from "../Utils";
 
 export const GET_TABLES = "GET_TABLES";
+export const GET_TABLE = "GET_TABLE";
 export const CREATE_TABLE = "CREATE_TABLE";
 export const UPDATE_TABLE = "UPDATE_TABLE";
 export const DELETE_TABLE = "DELETE_TABLE";
@@ -25,11 +26,30 @@ export const getTablesAction = () => {
     });
   };
 };
-
+export const getTableAction = (tableId) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const requestOptions = prepareRequestPayload(token.token);
+    const restaurant = getState().auth.user.store;
+    const response = await fetch(
+      `${config.apiRoot}restaurant/${restaurant.id}/tables/${tableId}`,
+      requestOptions
+    );
+    const table = await response.json();
+    if (table.error) {
+      throw new Error(table.message);
+    }
+    return dispatch({
+      type: GET_TABLE,
+      table,
+    });
+  };
+};
 export const createTableAction = (id, numberOfSeats) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const restaurant = getState().auth.user.store;
+    console.log(id);
     const requestOptions = prepareRequestPayload(
       token.token,
       "POST",

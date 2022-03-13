@@ -1,27 +1,16 @@
-import { useEffect, useCallback } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import LoginSignup from "./Components/LoginSignup";
 import MainApp from "./container/MainApp";
-import { loginAction, logoutAction } from "./Actions/Auth";
+import { logoutAction } from "./Actions/Auth";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Dashboard from "./container/Dashboard";
 import Reservations from "./container/Reservations";
 import Tables from "./container/Tables";
+import { RequireAuth } from "./container/RequireAuth";
+import TableReservations from "./container/TableReservations";
 
 function App() {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const getUser = useCallback(async () => {
-    try {
-      await dispatch(loginAction());
-    } catch (err) {
-      console.log(err.message);
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
 
   const logouthandler = (e) => {
     e.preventDefault();
@@ -68,17 +57,37 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={user.token ? <MainApp /> : <LoginSignup />}
+              element={
+                <RequireAuth>
+                  <MainApp />
+                </RequireAuth>
+              }
             />
 
             <Route
               path="/reservations"
-              element={user.token ? <Reservations /> : <LoginSignup />}
+              element={
+                <RequireAuth>
+                  <Reservations />
+                </RequireAuth>
+              }
             />
 
             <Route
               path="/tables"
-              element={user.token ? <Tables /> : <LoginSignup />}
+              element={
+                <RequireAuth>
+                  <Tables />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/reservations/:id"
+              element={
+                <RequireAuth>
+                  <TableReservations />
+                </RequireAuth>
+              }
             />
           </Routes>
         </main>

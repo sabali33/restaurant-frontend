@@ -122,4 +122,22 @@ export const updateReservationsAction = (id, data) => {
   };
 };
 
-export const moveTableReservationsAction = (old_table_id, new_table_id) => {};
+export const moveTableReservationsAction = (oldTable, newTable) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const body = JSON.stringify({
+      oldTable,
+      newTable,
+    });
+    const requestOptions = prepareRequestPayload(token.token, "PUT", body);
+    const response = await fetch(
+      `${config.apiRoot}reservation/move`,
+      requestOptions
+    );
+    const reservation = await response.json();
+    if (reservation.error) {
+      throw new Error(reservation.message);
+    }
+    return reservation;
+  };
+};
