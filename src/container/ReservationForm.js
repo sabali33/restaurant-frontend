@@ -9,7 +9,6 @@ import {
 import { updateTableAction } from "../Actions/Table";
 import { sanitizeString } from "../form-fields/sanitizers";
 import { Utils } from "../form-fields";
-import Modal from "./Modal";
 
 const reservationFormReducer = (state, payload) => {
   switch (payload.type) {
