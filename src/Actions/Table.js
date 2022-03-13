@@ -49,7 +49,6 @@ export const createTableAction = (id, numberOfSeats) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const restaurant = getState().auth.user.store;
-    console.log(id);
     const requestOptions = prepareRequestPayload(
       token.token,
       "POST",

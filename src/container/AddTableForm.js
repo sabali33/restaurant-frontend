@@ -29,7 +29,6 @@ const AddTableForm = (props) => {
   }, [table]);
 
   const createTableHandler = async (table) => {
-    console.log(props.id);
     try {
       if (table) {
         await dispatch(updateTableAction(table.id, numberOfSeats));
