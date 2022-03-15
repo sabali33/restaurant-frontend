@@ -53,12 +53,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div
-      className="relative p-4"
-      onClick={() => {
-        console.log("click");
-      }}
-    >
+    <div className="relative p-4">
       <h1 className="my-4 font-bold text-xl pl-4 md:pl-0"> Dashboard </h1>
       {loadingReservations && (
         <div className="absolute inset-0 bg-gray-600 bg-opacity-80 text-center py-10">

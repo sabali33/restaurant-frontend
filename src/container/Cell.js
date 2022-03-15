@@ -14,7 +14,6 @@ const Cell = (props) => {
   const [, drop] = useDrop(() => ({
     accept: "Table",
     drop: async (source) => {
-      console.log(source);
       setProcessing(true);
       try {
         await dispatch(moveTableReservationsAction(source.id.id, props.id));
