@@ -8,7 +8,7 @@ export const RequireAuth = ({ children }) => {
   const user = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-  const getUser = useCallback(async () => {
+  const login = useCallback(async () => {
     try {
       await dispatch(loginAction());
     } catch (err) {
@@ -16,8 +16,8 @@ export const RequireAuth = ({ children }) => {
     }
   }, []);
   useEffect(() => {
-    getUser();
-  }, [getUser]);
+    login();
+  }, [login]);
   if (!user.token) {
     return <LoginSignup />;
   }

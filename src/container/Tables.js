@@ -8,7 +8,7 @@ import { LayoutWithNav } from "../Components/Layout";
 
 const Tables = () => {
   const store_tables = useSelector((state) => state.tables.tables);
-  const user = useSelector((state) => state.auth);
+
   const [editingTable, setEditingTable] = useState(false);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
